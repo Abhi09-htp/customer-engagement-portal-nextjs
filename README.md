@@ -1,83 +1,80 @@
-customer-engagement-portal-nextjs
+# Customer Engagement Portal
 
-Frontend
+A full-stack web application designed to manage customer data for small sales teams.  
+This project demonstrates a clean implementation of frontend UI, backend APIs, and database integration using modern web technologies.
 
-Next.js (App Router)
+---
 
-React
+## Problem Statement
 
-TypeScript
+Sales teams need a simple system to:
+- Store customer details
+- View and manage customer records
+- Perform basic CRUD operations efficiently
 
-Plain CSS (dark theme UI)
+This application solves that problem using a lightweight, full-stack architecture.
 
-Backend
+---
 
-Next.js API Routes
+## Features Implemented
 
-Node.js
+- View list of customers
+- Add new customers (name and email)
+- Edit existing customer details
+- Delete customers
+- Search customers by name or email
+- Pagination support
+- Server-side API integration
+- PostgreSQL database integration (real database, not mock data)
 
-PostgreSQL
+---
 
-pg (node-postgres)
+## Tech Stack
 
-Frontend
+### Frontend
+- Next.js (App Router)
+- React
+- TypeScript
+- Plain CSS (dark theme UI)
 
-Next.js (App Router)
+### Backend
+- Next.js API Routes
+- Node.js
+- PostgreSQL
+- pg (node-postgres)
 
-React
+---
 
-TypeScript
-
-Plain CSS (dark theme UI)
-
-Backend
-
-Next.js API Routes
-
-Node.js
-
-PostgreSQL
-
-pg (node-postgres)
-
-Features Implemented
-
-View list of customers
-
-Add new customer (name + email)
-
-Edit existing customer
-
-Delete customer
-
-Search customers by name or email
-
-Pagination support
-
-Server-side API integration
-
-PostgreSQL database integration
+## Project Structure
 
 customer-engagement-portal-nextjs
 │
 ├── app
-│   ├── api
-│   │   └── customers
-│   │       └── route.ts
-│   ├── lib
-│   │   └── db.ts
-│   ├── page.tsx
-│   ├── layout.tsx
-│   └── globals.css
+│ ├── api
+│ │ └── customers
+│ │ └── route.ts
+│ ├── lib
+│ │ └── db.ts
+│ ├── page.tsx
+│ ├── layout.tsx
+│ └── globals.css
 │
 ├── .env.local
 ├── package.json
 ├── README.md
 └── tsconfig.json
 
- Database Configuration
 
- import { Pool } from "pg";
+---
+
+## Database Configuration
+
+PostgreSQL is used for data persistence.
+
+Example configuration (`app/lib/db.ts`):
+
+```ts
+import { Pool } from "pg";
 
 const pool = new Pool({
   host: "localhost",
@@ -89,85 +86,67 @@ const pool = new Pool({
 
 export default pool;
 
-API ENDPOINTS 
 
-
+| Method | Endpoint         | Description         |
+| ------ | ---------------- | ------------------- |
 | GET    | `/api/customers` | Fetch all customers |
 | POST   | `/api/customers` | Add a new customer  |
 | PUT    | `/api/customers` | Update customer     |
 | DELETE | `/api/customers` | Delete customer     |
 
 Running the Project Locally
-1️) Install dependencies
+1. Install dependencies
 npm install
 
-2️) Start PostgreSQL
+2. Start PostgreSQL
 
 Make sure PostgreSQL is running and the database exists.
 
-3️) Run the app
+3. Run the application
 npm run dev
 
-4️) Open in browser
+4. Open in browser
 http://localhost:3000
 
-5) Open in browser
-http://localhost:3000
 
-You can directly test the API in the browser or Postman:
+You can also test the API directly:
 
 http://localhost:3000/api/customers
 
- Assessment Notes
-
-This project fulfills the CRUD requirements of the assessment.
-
-Clean separation of frontend and backend logic.
-
-Uses real database (PostgreSQL), not mock data.
-
-UI kept simple and functional as per assessment expectations.
-
-📌 Assessment Notes
-
-This project fulfills the CRUD requirements of the assessment.
-
-Clean separation of frontend and backend logic.
-
-Uses real database (PostgreSQL), not mock data.
-
-UI kept simple and functional as per assessment expectations.
-
- Author
-
-Abhishek Mane
-Full-Stack Developer
-
- Status
-
-✔ Assessment Completed
-✔ Ready for Review
-✔ No further changes required
-
- IMPORTANT
-
-This README reflects the final submission state.
-No additional features are required unless explicitly requested.
-
-## Production Note
+Production Note
 
 The application uses PostgreSQL for data persistence.
 
- During local development, PostgreSQL runs locally and full CRUD functionality works as expected.
- When deployed on Vercel, the frontend and API routes are successfully deployed.
- However, the production deployment cannot access the local PostgreSQL instance, resulting in API responses returning an error.
+During local development, PostgreSQL runs locally and full CRUD functionality works as expected.
 
-This behavior is expected. In a real production environment, the database would be hosted on a cloud provider such as Railway, Supabase, or Neon and connected via environment variables.
+The application is deployed on Vercel.
 
+Vercel cannot access a local PostgreSQL instance, so in production the API may return an error when attempting database operations.
+
+This behavior is expected.
+In a real production environment, the database would be hosted on a cloud provider such as Railway, Supabase, or Neon, and connected using environment variables.
 
 Deployment
 
-Frontend and backend are deployed on Vercel.
+The application is deployed on Vercel.
 
 Live URL:
 https://customer-engagement-portal-nextjs-5asspw9iy.vercel.app
+
+Assessment Notes
+
+This project fulfills all CRUD requirements of the assessment.
+
+Clean separation of frontend and backend logic.
+
+Uses a real PostgreSQL database.
+
+UI is intentionally simple and functional as per assessment expectations.
+
+Author
+
+Abhishek Mane
+Full-Stack Developer
+GitHub: https://github.com/Abhi09-htp
+LinkedIn: https://www.linkedin.com/
+
