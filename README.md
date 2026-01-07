@@ -148,5 +148,5 @@ Author
 Abhishek Mane
 Full-Stack Developer
 GitHub: https://github.com/Abhi09-htp
-LinkedIn: https://www.linkedin.com/
+LinkedIn: https://www.linkedin.com/in/abhishek-mane-0033a1327
 
