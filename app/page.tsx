@@ -14,9 +14,11 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Create
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
+  // Edit
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editName, setEditName] = useState("");
   const [editEmail, setEditEmail] = useState("");
@@ -27,10 +29,12 @@ export default function HomePage() {
 
   async function fetchCustomers() {
     try {
+      setLoading(true);
       const res = await fetch("/api/customers");
       if (!res.ok) throw new Error();
       const data = await res.json();
       setCustomers(data);
+      setError("");
     } catch {
       setError("Failed to load customers");
     } finally {
@@ -41,13 +45,18 @@ export default function HomePage() {
   async function addCustomer(e: React.FormEvent) {
     e.preventDefault();
 
+    if (!name || !email) return;
+
     const res = await fetch("/api/customers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email }),
     });
 
-    if (!res.ok) return alert("Failed to add customer");
+    if (!res.ok) {
+      alert("Failed to add customer");
+      return;
+    }
 
     setName("");
     setEmail("");
@@ -55,26 +64,42 @@ export default function HomePage() {
   }
 
   async function updateCustomer(id: number) {
+    if (!editName || !editEmail) return;
+
     const res = await fetch("/api/customers", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, name: editName, email: editEmail }),
+      body: JSON.stringify({
+        id,
+        name: editName,
+        email: editEmail,
+      }),
     });
 
-    if (!res.ok) return alert("Failed to update customer");
+    if (!res.ok) {
+      alert("Failed to update customer");
+      return;
+    }
 
     setEditingId(null);
+    setEditName("");
+    setEditEmail("");
     fetchCustomers();
   }
 
   async function deleteCustomer(id: number) {
+    if (!confirm("Are you sure you want to delete this customer?")) return;
+
     const res = await fetch("/api/customers", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id }),
     });
 
-    if (!res.ok) return alert("Failed to delete customer");
+    if (!res.ok) {
+      alert("Failed to delete customer");
+      return;
+    }
 
     fetchCustomers();
   }
@@ -86,6 +111,7 @@ export default function HomePage() {
     <main style={{ padding: 20 }}>
       <h1>Customer Engagement Portal</h1>
 
+      {/* Add Customer */}
       <form onSubmit={addCustomer} style={{ marginBottom: 20 }}>
         <input
           placeholder="Name"
@@ -106,6 +132,7 @@ export default function HomePage() {
         </button>
       </form>
 
+      {/* Customer Table */}
       <table border={1} cellPadding={10} width="100%">
         <thead>
           <tr>
@@ -149,7 +176,16 @@ export default function HomePage() {
                 {editingId === c.id ? (
                   <>
                     <button onClick={() => updateCustomer(c.id)}>Save</button>
-                    <button onClick={() => setEditingId(null)}>Cancel</button>
+                    <button
+                      onClick={() => {
+                        setEditingId(null);
+                        setEditName("");
+                        setEditEmail("");
+                      }}
+                      style={{ marginLeft: 5 }}
+                    >
+                      Cancel
+                    </button>
                   </>
                 ) : (
                   <>
@@ -176,6 +212,7 @@ export default function HomePage() {
         </tbody>
       </table>
 
+      {/* Footer */}
       <footer
         style={{
           marginTop: 40,
@@ -183,10 +220,16 @@ export default function HomePage() {
           borderTop: "1px solid #ccc",
         }}
       >
-        <p><strong>Abhishek Mane</strong></p>
+        <p>
+          <strong>Abhishek Mane</strong>
+        </p>
         <p>
           GitHub:{" "}
-          <a href="https://github.com/Abhi09-htp" target="_blank">
+          <a
+            href="https://github.com/Abhi09-htp"
+            target="_blank"
+            rel="noreferrer"
+          >
             https://github.com/Abhi09-htp
           </a>
         </p>
@@ -195,6 +238,7 @@ export default function HomePage() {
           <a
             href="https://www.linkedin.com/in/abhishek-mane-0033a1327"
             target="_blank"
+            rel="noreferrer"
           >
             https://www.linkedin.com/in/abhishek-mane-0033a1327
           </a>
